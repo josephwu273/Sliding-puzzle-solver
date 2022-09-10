@@ -1,5 +1,6 @@
 package controller;
 
+//import java.util.Arrays;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -49,8 +50,11 @@ public class FindPathController implements EventHandler<ActionEvent> {
             Algorithm algorithm = selectedAlgorithm(initialState, goalState);
 
             algorithm.addSubscriber(MainView.getInstance());
-
+            System.out.println(" ");
             ActionListener listener = new ActionListener() {
+                
+                boolean flag=false;
+                int [][] oldboard = new int[State.getRows()][State.getColumns()];
                 @Override
                 public void actionPerformed(java.awt.event.ActionEvent e) {
                     //On first tick it will start solving
@@ -69,7 +73,17 @@ public class FindPathController implements EventHandler<ActionEvent> {
                                     MainView.getInstance().setImages(path.peek().getBoard());
                                 else
                                     MainView.getInstance().setTfsStart(path.peek().getBoard());
-                                path.pop();
+                                State z = path.pop();
+                                //System.out.print(Arrays.deepToString(z.getBoard()));
+                                if(flag){
+                                    char m = z.findMove(oldboard);
+                                    System.out.print(m);
+                                }
+                                else{
+                                    flag = true;
+                                }
+                                
+                                oldboard = z.getBoard();
 
                                 int numOfSteps = algorithm.getNumOfSteps();
                                 int nodeExplored = algorithm.getNodeExplored();

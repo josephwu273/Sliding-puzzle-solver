@@ -74,7 +74,7 @@ public class StateGenerator {
         newBoard[emptyField.y][emptyField.x] = newBoard[emptyField.y - 1][emptyField.x];
         newBoard[emptyField.y - 1][emptyField.x] = temp;
 
-        return new State(newBoard, parent);
+        return new State(newBoard, parent, 'U');
     }
 
     private State moveDown(int rows, int columns, Point emptyField, State parent) {
@@ -85,7 +85,7 @@ public class StateGenerator {
         newBoard[emptyField.y][emptyField.x] = newBoard[emptyField.y + 1][emptyField.x];
         newBoard[emptyField.y + 1][emptyField.x] = temp;
 
-        return new State(newBoard, parent);
+        return new State(newBoard, parent, 'D');
     }
 
     private State moveLeft(int rows, int columns, Point emptyField, State parent) {
@@ -96,7 +96,7 @@ public class StateGenerator {
         newBoard[emptyField.y][emptyField.x] = newBoard[emptyField.y][emptyField.x - 1];
         newBoard[emptyField.y][emptyField.x - 1] = temp;
 
-        return new State(newBoard, parent);
+        return new State(newBoard, parent,'L');
     }
 
     private State moveRight(int rows, int columns, Point emptyField, State parent) {
@@ -107,7 +107,7 @@ public class StateGenerator {
         newBoard[emptyField.y][emptyField.x] = newBoard[emptyField.y][emptyField.x + 1];
         newBoard[emptyField.y][emptyField.x + 1] = temp;
 
-        return new State(newBoard, parent);
+        return new State(newBoard, parent, 'R');
     }
 
     private void copyBoard(int[][] newBoard, int rows, int columns, State parent) {

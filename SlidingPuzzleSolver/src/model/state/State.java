@@ -15,6 +15,23 @@ public class State {
     private Point emptyField;
     private int depth;
     private int goalDistance;
+    public char relation;
+
+    public State(int[][] board, State parent, char r) {
+        this.relation = r;
+        this.emptyField = new Point(0, 0);
+        this.board = new int[rows][columns];
+
+        this.parent = parent;
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < columns; j++) {
+                if (board[i][j] == 0) {
+                    emptyField.x = j;
+                    emptyField.y = i;
+                } else
+                    this.board[i][j] = board[i][j];
+            }
+    }
 
     public State(int[][] board, State parent) {
         this.emptyField = new Point(0, 0);
@@ -29,6 +46,32 @@ public class State {
                 } else
                     this.board[i][j] = board[i][j];
             }
+    }
+
+    public char findMove(int[][] oldboard){
+        int i=0; 
+        int j=0;
+        char out='X';
+        find:
+        while(i<rows){
+            j=0;
+            while(j<columns){
+                if(oldboard[i][j]==0){break find;}
+                j++;
+            }
+            i++;
+        }
+        String s = i+","+j;
+        //System.out.println(s);
+
+        if(i+1<rows && board[i+1][j]==0){out = 'D';}
+        else if(i-1>=0 && board[i-1][j]==0){out = 'U';}
+        else if(j+1<columns && board[i][j+1]==0){out = 'R';}
+        else if(j-1>=0 && board[i][j-1]==0){out = 'L';}
+
+
+        
+        return out;
     }
 
     public static int getRows() {
